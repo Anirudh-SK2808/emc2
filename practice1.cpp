@@ -12,20 +12,20 @@ max1=max(max1,price[i]+rod_rec(n-i,price));
 return max1;
 
 }
-int memoized_help(int n,vector<int> &price,vector<int> &dp){
-if(n==0) return 0;
-if(dp[n]!=-1) return dp[n];
-int max1=INT_MIN;
-for(int i=1;i<=n;i++){
-max1=max(max1,price[i]+memoized_help(n-i,price,dp));
-}
-return dp[n]=max1;
+int memoized_help(int n, vector<int> &price, vector<int> &dp) {
+    if (n == 0) return 0;
+    if (dp[n] != -1) return dp[n];
 
+    int max1 = INT_MIN;
+    for (int i = 1; i <= n; i++) {
+        max1 = max(max1, price[i - 1] + memoized_help(n - i, price, dp));
+    }
+    return dp[n] = 1+max1;
 }
-int mem(int n,vector<int> &price){
-vector<int> dp(n+1,-1);
-memoized_help(n,price,dp);
 
+int mem(int n, vector<int> &price) {
+    vector<int> dp(n + 1, -1);
+    return memoized_help(n, price, dp);
 }
 
 int main(){
